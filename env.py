@@ -74,9 +74,7 @@ class MapEnv(gym.Env):
 
         self.observations = ['car_signals', 'car_position', 'goal_position', 'orientation', 'distance', 'score']
         self.goal_index = 0
-        #self.goal_positions = [(1078, 330), (939, 133), (623, 353), (678, 350), (503, 585), (452, 39), (361, 100), (170, 331)]
-        self.goal_positions = [(1007, 361), (939, 133), (623, 348), (678, 350), (503, 585), (452, 35), (361, 130), (170, 331)]
-
+        self.goal_positions = [(1078, 330), (939, 133), (623, 343), (678, 350), (503, 585), (452, 33), (361, 132), (170, 331)]
 
         self.log = ''
 
@@ -150,7 +148,7 @@ class MapEnv(gym.Env):
         xx =  goal[0] - int(self.canvas.car.center_x)
         yy = goal[1] - int(self.canvas.car.center_y)
         orientation = Vector(*self.canvas.car.velocity).angle((xx, yy)) / 180.0
-        #orientation = round(orientation, 3)
+        # orientation = round(orientation, 3)
 
         return orientation
 
@@ -162,7 +160,7 @@ class MapEnv(gym.Env):
         orientation = self.get_goal_orientation()
 
         self.canvas.car.signal1, self.canvas.car.signal2, self.canvas.car.signal3 = self.get_signals()
-        #print('signals: ', self.canvas.car.signal1, self.canvas.car.signal2, self.canvas.car.signal3)
+        # print('signals: ', self.canvas.car.signal1, self.canvas.car.signal2, self.canvas.car.signal3)
 
         longueur = self.map_size[0]
         largeur = self.map_size[1]
@@ -181,13 +179,13 @@ class MapEnv(gym.Env):
 
 
         if self.sand[int(self.canvas.car.center_x), int(self.canvas.car.center_y)] > 0:
-            #done = True
+            # done = True
             reward = -1.0
 
         else:  # otherwise
             reward = -0.2
 
-            #if self.follow_flag:
+            # if self.follow_flag:
             if distance < self.state.get('distance'):
                 reward = 0.1 + np.clip((10.0 / distance), 0.0001, 0.9)
 
@@ -240,7 +238,7 @@ class MapEnv(gym.Env):
         if self.sand[int(self.canvas.car.center_x), int(self.canvas.car.center_y)] > 0:
             new_speed = 0.5
         else:
-            new_speed = 2. #self.max_speed*(1.0 - abs(rotation)/self.max_action)
+            new_speed = 2. # self.max_speed*(1.0 - abs(rotation)/self.max_action)
 
         self.canvas.car.rotation = rotation
 
@@ -256,7 +254,7 @@ class MapEnv(gym.Env):
 
         self.canvas.car.center = Vector(new_speed, 0).rotate(self.canvas.car.angle) + self.canvas.car.center
 
-        #return self.update_state()
+        # return self.update_state()
 
 
     def reset(self, **kwargs):

@@ -45,9 +45,9 @@ class CarApp(App):
                 follow_goals_timesteps=0
             )
 
-            #state_dim = env.observation_space.shape[0]
-            #action_dim = env.action_space.shape[0]
-            #max_action = float(env.action_space.high[0])
+            # state_dim = env.observation_space.shape[0]
+            # action_dim = env.action_space.shape[0]
+            # max_action = float(env.action_space.high[0])
 
 
     def build(self):
@@ -58,7 +58,7 @@ class CarApp(App):
         if self.mode in ['train', 'train2']:
             self.file_name = "%s_%s_%s" % ("train_TD3", self.training_config['env_name'], str(self.seed))
             self.policy = TD3(self.env.observation_space.shape[0], self.env.action_space.shape[0], float(self.env.action_space.high[0]))
-            #self.policy.load('train', './pytorch_models/')
+            # self.policy.load('train', './pytorch_models/')
             self.replay_buffer = ReplayBuffer()
             self.evaluations = []
 
@@ -70,11 +70,11 @@ class CarApp(App):
             self.episode_reward = 0.0
 
         elif self.mode in ['eval', 'train3']:
-            self.env.canvas.car.center = (1020, 400) # (1132, 1092)
+            self.env.canvas.car.center = (1020, 400) 
             self.replay_buffer = ReplayBuffer()
             self.evaluations = []
 
-            self.seed = 882
+            self.seed = 8249 
             self.env.follow_flag = True
             self.total_timesteps = 0
             self.episode_num = 0
